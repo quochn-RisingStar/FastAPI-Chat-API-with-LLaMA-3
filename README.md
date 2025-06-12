@@ -1,14 +1,15 @@
 
+# 🧠 FastAPI + Gradio Chatbot with LLaMA 3 via Ollama
 
-# 🧠 FastAPI Chat API with LLaMA 3 via Ollama
+![App Running Screenshot](Image/Running.png)
 
-This project provides a simple FastAPI-based API that sends a prompt to the LLaMA 3 language model (via [Ollama](https://ollama.com)) and returns the response — similar to ChatGPT.
+This project combines a FastAPI backend and a Gradio frontend to send prompts to the [LLaMA 3](https://ollama.com/library/llama3) model using [Ollama](https://ollama.com).
 
 ---
 
 ## 🚀 Requirements
 
-- Python 3.8 or later
+- Python 3.8+
 - [Ollama installed](https://ollama.com/download)
 - LLaMA 3 model pulled via Ollama
 
@@ -17,13 +18,15 @@ This project provides a simple FastAPI-based API that sends a prompt to the LLaM
 ## 🛠️ Setup Instructions
 
 ### 1. Clone the Repository
+
 ```
-git clone https://github.com/your-username/my-ai-agent.git
+git clone https://github.com/quochn-RisingStar/FastAPI-Chat-API-with-LLaMA-3.git
 cd my-ai-agent
 ```
-### 2. Create a Virtual Environment (recommended)
 
-```bash
+### 2. Create and Activate a Virtual Environment
+
+```
 python3 -m venv venv
 source venv/bin/activate  # macOS/Linux
 venv\Scripts\activate     # Windows
@@ -32,43 +35,50 @@ venv\Scripts\activate     # Windows
 ### 3. Install Python Dependencies
 
 ```bash
-pip install fastapi uvicorn requests
+pip install -r requirements.txt
+```
+
+Or manually:
+
+```bash
+pip install fastapi uvicorn gradio requests
 ```
 
 ---
 
-## 🤖 Pull & Run the LLaMA 3 Model
+## 🧠 Run the LLaMA 3 Model with Ollama
 
 ```bash
 ollama pull llama3
 ollama run llama3
 ```
 
-> ✅ By default, Ollama will serve the model at `http://localhost:11434`.
+> ✅ Ollama serves the model by default at `http://localhost:11434`.
 
 ---
 
-## 🚦 Start the FastAPI Server
+## 🚀 Start the App (Backend + UI)
 
 ```bash
-uvicorn main:app --reload
+python3 app.py
 ```
 
-> The server will be available at: `http://127.0.0.1:8000`
+> 🟢 This will:
+>
+> * Start a FastAPI backend at: `http://127.0.0.1:8000`
+> * Open a Gradio web UI at: [http://127.0.0.1:7860](http://127.0.0.1:7860)
 
 ---
 
-## 🧪 Test the API Endpoint
-
-Using `curl`:
+## 🧪 Test the API
 
 ```bash
-curl -X POST http://localhost:8000/ask \
+curl -X POST http://localhost:8000/ask/stream \
   -H "Content-Type: application/json" \
-  -d '{"prompt": "Hey AI, what is diabetes?"}'
+  -d '{"prompt": "Xin chào"}'
 ```
 
-> 📌 You’ll get a JSON response with the model's answer.
+> 🗨️ The API streams back the LLaMA 3 response using FastAPI's `StreamingResponse`.
 
 ---
 
@@ -76,27 +86,30 @@ curl -X POST http://localhost:8000/ask \
 
 ```
 my-ai-agent/
-├── main.py
+├── app.py               # Main entry point (FastAPI + Gradio)
 ├── README.md
 └── requirements.txt
 ```
 
 ---
 
-## ✅ `requirements.txt` (example)
+## ✅ `requirements.txt`
 
 ```txt
 fastapi
 uvicorn
+gradio
 requests
 ```
 
 ---
 
-## 💡 Suggestions for Improvement
+## 💡 Ideas for Expansion
 
-* Add API key authentication
-* Build a frontend interface (React, Vue, Flutter)
-* Save prompt/response history to SQLite or MongoDB
+* ✅ Add prompt/response memory
+* ✅ Add user chat history with timestamps
+* 🔒 Add API key or token authentication
+* 📊 Monitor usage (requests per user)
+* 🧱 Add SQLite/MongoDB to store conversations
 
 ---
